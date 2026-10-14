@@ -1,0 +1,1401 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff5e9">
+  <title>A Birthday Wish for Ameera</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: ui-rounded, "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+      color: #512f46;
+      background: #fff5e9;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      --berry: #9a4776;
+      --berry-dark: #723258;
+      --rose: #f5c2c4;
+      --cream: #fffaf3;
+      --ink-muted: #806878;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 28px 16px;
+      display: grid;
+      place-items: center;
+      overflow-x: hidden;
+      background:
+        radial-gradient(ellipse at 12% 18%, rgb(255 218 197 / 55%), transparent 34%),
+        radial-gradient(ellipse at 90% 82%, rgb(238 204 226 / 55%), transparent 38%),
+        #fff5e9;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid #4f8b79;
+      outline-offset: 4px;
+    }
+
+    .birthday-card {
+      width: min(100%, 760px);
+      padding: clamp(18px, 4vw, 34px);
+      border: 1px solid rgb(130 78 112 / 13%);
+      border-radius: 30px;
+      background: rgb(255 250 243 / 94%);
+      box-shadow: 0 24px 70px rgb(103 57 83 / 13%);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--berry);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: #673653;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 6vw, 3.25rem);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.08;
+      text-align: center;
+    }
+
+    .intro {
+      max-width: 520px;
+      margin: 12px auto 22px;
+      color: var(--ink-muted);
+      font-size: clamp(0.95rem, 2.8vw, 1.08rem);
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .game-panel {
+      overflow: hidden;
+      border: 1px solid rgb(127 76 106 / 15%);
+      border-radius: 22px;
+      background: #fff1ee;
+    }
+
+    .game-toolbar {
+      min-height: 70px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--cream);
+    }
+
+    .progress-copy {
+      min-width: 0;
+    }
+
+    .progress-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--ink-muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .progress-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .progress-line strong {
+      min-width: 52px;
+      color: var(--berry-dark);
+      font-size: 1rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    progress {
+      width: clamp(90px, 26vw, 190px);
+      height: 9px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 99px;
+      background: #f1dfe5;
+      appearance: none;
+    }
+
+    progress::-webkit-progress-bar {
+      border-radius: 99px;
+      background: #f1dfe5;
+    }
+
+    progress::-webkit-progress-value {
+      border-radius: 99px;
+      background: linear-gradient(90deg, #d9869b, #9a4776);
+      transition: width 180ms ease;
+    }
+
+    progress::-moz-progress-bar {
+      border-radius: 99px;
+      background: linear-gradient(90deg, #d9869b, #9a4776);
+    }
+
+    .sound-button,
+    .primary-button,
+    .blow-button {
+      min-height: 44px;
+      border: 0;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .sound-button {
+      padding: 0 15px;
+      flex: 0 0 auto;
+      color: var(--berry-dark);
+      background: #f8e8ed;
+      font-size: 0.9rem;
+      font-weight: 800;
+    }
+
+    .sound-button:hover,
+    .blow-button:hover:not(:disabled):not([aria-disabled="true"]),
+    .primary-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .sound-button[aria-pressed="false"] {
+      color: #6f6269;
+      background: #eee9e5;
+    }
+
+    .scene {
+      position: relative;
+      height: clamp(300px, 58vw, 420px);
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 90%, rgb(255 209 203 / 62%), transparent 48%),
+        linear-gradient(180deg, #fff0e9 0%, #f9dfe1 100%);
+      touch-action: none;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+    }
+
+    .scene-hint {
+      position: absolute;
+      inset: 14px 12px auto;
+      margin: 0;
+      color: #805d70;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .start-panel {
+      position: absolute;
+      inset: 0;
+      padding: 24px;
+      display: grid;
+      align-content: center;
+      justify-items: center;
+      gap: 11px;
+      background: rgb(255 248 242 / 38%);
+      text-align: center;
+    }
+
+    .start-panel[hidden] {
+      display: none;
+    }
+
+    .start-panel p {
+      max-width: 380px;
+      margin: 0;
+      color: #62435a;
+      font-size: 1rem;
+      line-height: 1.5;
+      text-shadow: 0 1px 9px rgb(255 250 243 / 90%);
+    }
+
+    .primary-button,
+    .blow-button {
+      padding: 0 22px;
+      color: white;
+      background: var(--berry);
+      box-shadow: 0 7px 18px rgb(154 71 118 / 24%);
+      font-weight: 800;
+    }
+
+    .primary-button:hover,
+    .blow-button:hover:not(:disabled):not([aria-disabled="true"]) {
+      background: var(--berry-dark);
+    }
+
+    .game-actions {
+      min-height: 76px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      background: var(--cream);
+    }
+
+    .game-instruction {
+      max-width: 430px;
+      margin: 0;
+      color: var(--ink-muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .blow-button {
+      min-width: 174px;
+      flex: 0 0 auto;
+    }
+
+    .blow-button:disabled,
+    .blow-button[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.55;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .audio-status {
+      min-height: 1.3em;
+      margin: 10px 4px 0;
+      color: var(--ink-muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    .birthday-footer {
+      margin: 17px 0 0;
+      color: #987f8e;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 0.95rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    .celebration {
+      position: fixed;
+      z-index: 5;
+      inset: 0;
+      padding: 20px;
+      display: grid;
+      place-items: center;
+      background: rgb(38 18 36 / 68%);
+      backdrop-filter: blur(7px);
+    }
+
+    .celebration[hidden] {
+      display: none;
+    }
+
+    .celebration-fireworks {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .firework-burst {
+      position: absolute;
+      width: clamp(64px, 8vw, 112px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      opacity: 0.92;
+      background:
+        radial-gradient(circle, #fff 0 4%, transparent 5%),
+        repeating-conic-gradient(
+          from -8deg,
+          var(--burst-color) 0deg 3deg,
+          transparent 3.5deg 15deg
+      );
+      -webkit-mask-image: radial-gradient(circle, #000 0 80%, transparent 81%);
+      mask-image: radial-gradient(circle, #000 0 80%, transparent 81%);
+      filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 14px var(--burst-color));
+      transform: translate(-50%, -50%) scale(0.86);
+      animation: firework-pulse 2.6s ease-in-out infinite;
+    }
+
+    .firework-burst--one {
+      top: 25%;
+      left: 9%;
+      --burst-color: #ff3d68;
+      animation-delay: -0.7s;
+    }
+
+    .firework-burst--two {
+      top: 25%;
+      right: 9%;
+      --burst-color: #ffd034;
+      animation-delay: -1.5s;
+    }
+
+    .firework-burst--three {
+      left: 16%;
+      bottom: 16%;
+      --burst-color: #5ae9ff;
+      animation-delay: -0.2s;
+    }
+
+    .firework-burst--four {
+      right: 16%;
+      bottom: 16%;
+      --burst-color: #c77dff;
+      animation-delay: -1.1s;
+    }
+
+    @keyframes firework-pulse {
+      0%,
+      100% {
+        opacity: 0.92;
+        transform: translate(-50%, -50%) scale(0.78);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    .celebration-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 470px);
+      padding: 82px clamp(26px, 6vw, 44px) clamp(26px, 6vw, 44px);
+      border: 1px solid rgb(255 255 255 / 75%);
+      border-radius: 28px;
+      background: #fffaf3;
+      box-shadow: 0 22px 80px rgb(49 27 44 / 25%);
+      text-align: center;
+    }
+
+    .modal-flowers {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      width: min(220px, calc(100% - 40px));
+      height: 48px;
+      pointer-events: none;
+      transform: translateX(-50%);
+    }
+
+    .celebration-card h2 {
+      margin: 0 0 12px;
+      color: #713857;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 8vw, 3.2rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+
+    .celebration-card p {
+      margin: 0 0 23px;
+      color: var(--ink-muted);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .celebration-card .eyebrow {
+      margin-bottom: 12px;
+    }
+
+    .celebration-card .audio-status {
+      min-height: 1.3em;
+      margin: 0 0 12px;
+      color: var(--ink-muted);
+      font-size: 0.82rem;
+      font-style: normal;
+    }
+
+    @media (orientation: portrait) and (max-width: 900px) {
+      .firework-burst {
+        width: 64px;
+      }
+
+      .firework-burst--one {
+        top: 6%;
+        left: 25%;
+      }
+
+      .firework-burst--two {
+        top: 6%;
+        right: 25%;
+      }
+
+      .firework-burst--three {
+        right: 25%;
+        bottom: 6%;
+        left: auto;
+      }
+
+      .firework-burst--four {
+        right: auto;
+        bottom: 6%;
+        left: 25%;
+      }
+    }
+
+    @media (max-height: 900px) {
+      .celebration-card {
+        max-height: calc(100dvh - 40px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+    }
+
+    @media (orientation: landscape) and (max-height: 500px) {
+      .celebration {
+        padding: 56px 16px;
+      }
+
+      .celebration-card {
+        max-height: calc(100dvh - 112px);
+        padding: 58px 24px 22px;
+      }
+
+      .modal-flowers {
+        top: 8px;
+        width: 180px;
+        height: 36px;
+      }
+
+      .celebration-card h2 {
+        font-size: clamp(1.65rem, 6vh, 2rem);
+        line-height: 1;
+      }
+
+      .celebration-card p {
+        margin-bottom: 10px;
+      }
+
+      .celebration-card .audio-status {
+        margin-bottom: 8px;
+      }
+
+      .firework-burst {
+        width: 48px;
+      }
+
+      .firework-burst--one {
+        top: 7%;
+        left: 25%;
+      }
+
+      .firework-burst--two {
+        top: 7%;
+        right: 25%;
+      }
+
+      .firework-burst--three {
+        right: 25%;
+        bottom: 7%;
+        left: auto;
+      }
+
+      .firework-burst--four {
+        right: auto;
+        bottom: 7%;
+        left: 25%;
+      }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 14px 10px;
+      }
+
+      .birthday-card {
+        border-radius: 24px;
+      }
+
+      .game-toolbar {
+        padding: 12px;
+      }
+
+      .game-actions {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 14px;
+      }
+
+      .game-instruction {
+        text-align: center;
+      }
+
+      .blow-button {
+        width: 100%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .firework-burst {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.9);
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="birthday-card" id="game-shell">
+    <p class="eyebrow">A little birthday game</p>
+    <h1>Make a wish, Ameera!</h1>
+    <p class="intro">Catch the candle flame and blow it out 30 times to reveal your birthday surprise.</p>
+
+    <section class="game-panel" aria-label="Birthday candle game">
+      <div class="game-toolbar">
+        <div class="progress-copy">
+          <span class="progress-label">Candles blown out</span>
+          <div class="progress-line">
+            <strong id="progress-text">0 / 30</strong>
+            <progress id="progress-bar" max="30" value="0" aria-label="Candles blown out"></progress>
+          </div>
+        </div>
+        <button class="sound-button" id="sound-toggle" type="button" aria-pressed="true">Sound: On</button>
+      </div>
+
+      <div class="scene" id="scene">
+        <canvas id="game-canvas" aria-hidden="true"></canvas>
+        <p class="scene-hint" id="scene-hint">A little wish is waiting for you</p>
+        <div class="start-panel" id="start-panel">
+          <p>Left-click or tap the moving flame. It gets quicker with every wish!</p>
+          <button class="primary-button" id="start-button" type="button">Start the mini game</button>
+        </div>
+      </div>
+
+      <div class="game-actions">
+        <p class="game-instruction" id="game-instruction">Click or tap the flame, or use the button. The candle speeds up each time.</p>
+        <button class="blow-button" id="blow-button" type="button" disabled>Blow out candle</button>
+      </div>
+    </section>
+    <p class="audio-status" id="audio-status" aria-live="polite">Sound is on. Birthday music plays when you finish.</p>
+    <p class="birthday-footer">Made with love, just for your special day ✨</p>
+    <p class="visually-hidden" id="progress-announcement" aria-live="polite" aria-atomic="true"></p>
+  </main>
+
+  <section class="celebration" id="celebration" role="dialog" aria-modal="true" aria-labelledby="celebration-title" hidden>
+    <div class="celebration-fireworks" aria-hidden="true">
+      <span class="firework-burst firework-burst--one"></span>
+      <span class="firework-burst firework-burst--two"></span>
+      <span class="firework-burst firework-burst--three"></span>
+      <span class="firework-burst firework-burst--four"></span>
+    </div>
+    <div class="celebration-card">
+      <svg class="modal-flowers" viewBox="0 0 220 48" aria-hidden="true" focusable="false">
+        <path d="M46 25c-1 6-1 11 1 18m63-25c-1 5-1 11 0 18m62-11c-1 6-1 11-1 18" fill="none" stroke="#668e65" stroke-linecap="round" stroke-width="2"/>
+        <path d="M45 35c-9-8-17-5-16 1 6 5 12 5 16-1m2 4c7-9 15-7 14-1-4 6-9 7-14 1m50-7c-8-7-15-5-14 1 5 4 10 4 14-1m3 5c7-8 14-6 13-1-4 5-9 6-13 1m47-5c-8-7-15-5-14 1 5 4 10 4 14-1m3 5c7-8 14-6 13-1-4 5-9 6-13 1" fill="#8bad7e"/>
+        <g transform="translate(46 17)" fill="#f29ab3" stroke="#fffaf3" stroke-width="1.3">
+          <ellipse cx="0" cy="-7" rx="4.5" ry="7"/>
+          <ellipse cx="7" cy="-2" rx="4.5" ry="7" transform="rotate(55 7 -2)"/>
+          <ellipse cx="4" cy="6" rx="4.5" ry="7" transform="rotate(125 4 6)"/>
+          <ellipse cx="-4" cy="6" rx="4.5" ry="7" transform="rotate(-125 -4 6)"/>
+          <ellipse cx="-7" cy="-2" rx="4.5" ry="7" transform="rotate(-55 -7 -2)"/>
+          <circle r="4" fill="#ffd166"/>
+        </g>
+        <g transform="translate(110 13)" fill="#c99bdd" stroke="#fffaf3" stroke-width="1.3">
+          <ellipse cx="0" cy="-7" rx="4.5" ry="7"/>
+          <ellipse cx="7" cy="-2" rx="4.5" ry="7" transform="rotate(55 7 -2)"/>
+          <ellipse cx="4" cy="6" rx="4.5" ry="7" transform="rotate(125 4 6)"/>
+          <ellipse cx="-4" cy="6" rx="4.5" ry="7" transform="rotate(-125 -4 6)"/>
+          <ellipse cx="-7" cy="-2" rx="4.5" ry="7" transform="rotate(-55 -7 -2)"/>
+          <circle r="4" fill="#ffd166"/>
+        </g>
+        <g transform="translate(174 17)" fill="#f29ab3" stroke="#fffaf3" stroke-width="1.3">
+          <ellipse cx="0" cy="-7" rx="4.5" ry="7"/>
+          <ellipse cx="7" cy="-2" rx="4.5" ry="7" transform="rotate(55 7 -2)"/>
+          <ellipse cx="4" cy="6" rx="4.5" ry="7" transform="rotate(125 4 6)"/>
+          <ellipse cx="-4" cy="6" rx="4.5" ry="7" transform="rotate(-125 -4 6)"/>
+          <ellipse cx="-7" cy="-2" rx="4.5" ry="7" transform="rotate(-55 -7 -2)"/>
+          <circle r="4" fill="#ffd166"/>
+        </g>
+      </svg>
+      <p class="eyebrow">Your wish came true</p>
+      <h2 id="celebration-title" tabindex="-1">Happy Birthday to you Ameera!</h2>
+      <p>May your year be full of lovely surprises, laughter, and everything you wished for.</p>
+      <p class="audio-status" id="celebration-audio-status" aria-live="polite"></p>
+      <button class="sound-button" id="celebration-sound-toggle" type="button" aria-pressed="true">Sound: On</button>
+      <button class="primary-button" id="replay-button" type="button">Play again</button>
+    </div>
+  </section>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const HIT_GOAL = 30;
+      const CANDLE_BASE_SPEED = 72;
+      const CANDLE_SPEED_STEP = 6;
+      const CANDLE_MAX_SPEED = 180;
+      const HIT_RADIUS = 28;
+      const BLOWOUT_SECONDS = 0.25;
+      const MAX_DELTA_SECONDS = 0.05;
+      const MAX_DPR = 2;
+      const PARTICLE_COUNT = 180;
+      const AUDIO_UNAVAILABLE_MESSAGE = "Audio could not start in this browser. The birthday game is still ready to play.";
+      const FIREWORK_COLORS = ["#a64d79", "#f08b71", "#e3a93c", "#608e80", "#8f78b5"];
+
+      const shell = document.getElementById("game-shell");
+      const canvas = document.getElementById("game-canvas");
+      const context = canvas.getContext("2d", { alpha: true });
+      const cakeFlowersCanvas = document.createElement("canvas");
+      const cakeFlowersContext = cakeFlowersCanvas.getContext("2d");
+      const scene = document.getElementById("scene");
+      const startPanel = document.getElementById("start-panel");
+      const startButton = document.getElementById("start-button");
+      const blowButton = document.getElementById("blow-button");
+      const soundToggle = document.getElementById("sound-toggle");
+      const progressText = document.getElementById("progress-text");
+      const progressBar = document.getElementById("progress-bar");
+      const progressAnnouncement = document.getElementById("progress-announcement");
+      const sceneHint = document.getElementById("scene-hint");
+      const audioStatus = document.getElementById("audio-status");
+      const celebration = document.getElementById("celebration");
+      const celebrationTitle = document.getElementById("celebration-title");
+      const celebrationAudioStatus = document.getElementById("celebration-audio-status");
+      const celebrationSoundToggle = document.getElementById("celebration-sound-toggle");
+      const replayButton = document.getElementById("replay-button");
+
+      const state = {
+        mode: "intro",
+        hits: 0,
+        width: 0,
+        height: 0,
+        dpr: 1,
+        lastFrame: 0,
+        blowoutRemaining: 0,
+        fireworkElapsed: 0,
+        fireworkSpawnElapsed: 0,
+        reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+        soundEnabled: true,
+        audioUnavailable: false,
+        lastAnnouncement: 0
+      };
+
+      const cake = {
+        centerX: 0,
+        baseY: 0,
+        lowerWidth: 0,
+        lowerTop: 0,
+        upperWidth: 0,
+        upperTop: 0,
+        candleMinX: 0,
+        candleMaxX: 0
+      };
+
+      const candle = {
+        x: 0,
+        direction: 1,
+        height: 48,
+        width: 15,
+        lit: true
+      };
+
+      const particles = [];
+      let particleCursor = 0;
+      for (let i = 0; i < PARTICLE_COUNT; i += 1) {
+        particles.push({
+          x: 0,
+          y: 0,
+          vx: 0,
+          vy: 0,
+          life: 0,
+          maxLife: 0,
+          size: 0,
+          color: FIREWORK_COLORS[0],
+          active: false
+        });
+      }
+
+      let animationFrame = 0;
+      let audioContext = null;
+      let masterGain = null;
+      let noiseBuffer = null;
+      const activeMusic = new Set();
+      const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+      function clamp(value, minimum, maximum) {
+        return Math.max(minimum, Math.min(maximum, value));
+      }
+
+      function currentCandleSpeed(hits) {
+        return Math.min(CANDLE_MAX_SPEED, CANDLE_BASE_SPEED + CANDLE_SPEED_STEP * hits);
+      }
+
+      function configureCanvas() {
+        const bounds = canvas.getBoundingClientRect();
+        if (bounds.width === 0 || bounds.height === 0) {
+          return;
+        }
+
+        state.width = bounds.width;
+        state.height = bounds.height;
+        state.dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+        canvas.width = Math.round(state.width * state.dpr);
+        canvas.height = Math.round(state.height * state.dpr);
+        context.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+
+        cake.centerX = state.width / 2;
+        cake.baseY = state.height - 35;
+        cake.lowerWidth = Math.min(state.width * 0.74, 430);
+        cake.lowerTop = cake.baseY - 79;
+        cake.upperWidth = cake.lowerWidth * 0.58;
+        cake.upperTop = cake.lowerTop - 57;
+        cake.candleMinX = cake.centerX - cake.upperWidth / 2 + 23;
+        cake.candleMaxX = cake.centerX + cake.upperWidth / 2 - 23;
+        candle.x = clamp(candle.x || cake.centerX, cake.candleMinX, cake.candleMaxX);
+
+        cakeFlowersCanvas.width = canvas.width;
+        cakeFlowersCanvas.height = canvas.height;
+        cakeFlowersContext.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+        cakeFlowersContext.clearRect(0, 0, state.width, state.height);
+        drawCakeFlowers();
+      }
+
+      function resetCandle() {
+        candle.x = (cake.candleMinX + cake.candleMaxX) / 2;
+        candle.direction = 1;
+        candle.lit = true;
+        state.blowoutRemaining = 0;
+      }
+
+      function chooseRelightPosition() {
+        const span = cake.candleMaxX - cake.candleMinX;
+        if (span < 12) {
+          return (cake.candleMinX + cake.candleMaxX) / 2;
+        }
+
+        const side = candle.x < (cake.candleMinX + cake.candleMaxX) / 2 ? 1 : -1;
+        const distance = span * (0.58 + Math.random() * 0.36);
+        return clamp(candle.x + side * distance, cake.candleMinX, cake.candleMaxX);
+      }
+
+      function updateProgress() {
+        progressText.textContent = `${state.hits} / ${HIT_GOAL}`;
+        progressBar.max = HIT_GOAL;
+        progressBar.value = state.hits;
+        const now = performance.now();
+        if (state.hits === HIT_GOAL || now - state.lastAnnouncement >= 450) {
+          progressAnnouncement.textContent = `${state.hits} of ${HIT_GOAL} candles blown out`;
+          state.lastAnnouncement = now;
+        }
+      }
+
+      function updateControls() {
+        // Keep the button focusable while relighting so keyboard focus is not dropped; registerHit() ignores presses.
+        blowButton.disabled = state.mode !== "playing";
+        blowButton.setAttribute("aria-disabled", String(state.mode !== "playing" || !candle.lit));
+        if (state.mode !== "playing") {
+          blowButton.textContent = "Blow out candle";
+        } else if (!candle.lit) {
+          blowButton.textContent = "Candle is relighting…";
+        } else {
+          blowButton.textContent = "Blow out candle";
+        }
+      }
+
+      function announceAudio(message) {
+        audioStatus.textContent = message;
+        celebrationAudioStatus.textContent = message;
+      }
+
+      function handleAudioFailure() {
+        state.audioUnavailable = true;
+        if (state.soundEnabled) {
+          announceAudio(AUDIO_UNAVAILABLE_MESSAGE);
+        }
+      }
+
+      function updateSoundButtons() {
+        const label = state.soundEnabled ? "Sound: On" : "Sound: Off";
+        const pressed = String(state.soundEnabled);
+        soundToggle.textContent = label;
+        soundToggle.setAttribute("aria-pressed", pressed);
+        celebrationSoundToggle.textContent = label;
+        celebrationSoundToggle.setAttribute("aria-pressed", pressed);
+      }
+
+      function createAudio() {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+          handleAudioFailure();
+          return false;
+        }
+
+        try {
+          audioContext = new AudioContextClass();
+          masterGain = audioContext.createGain();
+          masterGain.gain.value = state.soundEnabled ? 0.42 : 0;
+          masterGain.connect(audioContext.destination);
+
+          const bufferLength = Math.floor(audioContext.sampleRate * 0.24);
+          noiseBuffer = audioContext.createBuffer(1, bufferLength, audioContext.sampleRate);
+          const channel = noiseBuffer.getChannelData(0);
+          for (let i = 0; i < channel.length; i += 1) {
+            channel[i] = (Math.random() * 2 - 1) * (1 - i / channel.length);
+          }
+          state.audioUnavailable = false;
+        } catch (error) {
+          audioContext = null;
+          masterGain = null;
+          noiseBuffer = null;
+          handleAudioFailure();
+          return false;
+        }
+
+        return resumeAudio();
+      }
+
+      function resumeAudio() {
+        if (!audioContext || audioContext.state === "running") {
+          return true;
+        }
+
+        try {
+          audioContext.resume().then(() => {
+            if (state.audioUnavailable) {
+              state.audioUnavailable = false;
+              if (state.soundEnabled) {
+                announceAudio(state.mode === "celebration"
+                  ? "Sound is on. Birthday music is playing."
+                  : "Sound is on. Birthday music plays when you finish.");
+              }
+            }
+          }).catch(handleAudioFailure);
+          return true;
+        } catch {
+          handleAudioFailure();
+          return false;
+        }
+      }
+
+      function ensureAudio() {
+        if (!state.soundEnabled) {
+          return false;
+        }
+        if (!audioContext) {
+          return createAudio();
+        }
+        return resumeAudio();
+      }
+
+      function setSoundEnabled(enabled) {
+        state.soundEnabled = enabled;
+        updateSoundButtons();
+
+        if (!enabled) {
+          stopMusic();
+          if (masterGain && audioContext) {
+            masterGain.gain.setTargetAtTime(0, audioContext.currentTime, 0.025);
+          }
+          announceAudio("Sound is off.");
+          return;
+        }
+
+        if (masterGain && audioContext) {
+          masterGain.gain.setTargetAtTime(0.42, audioContext.currentTime, 0.025);
+        }
+        const ready = ensureAudio();
+        if (ready && state.mode === "celebration") {
+          playBirthdayTune();
+        } else if (ready) {
+          announceAudio("Sound is on. Birthday music plays when you finish.");
+        }
+      }
+
+      function playBlowSound() {
+        if (!state.soundEnabled || !ensureAudio() || !noiseBuffer) {
+          return;
+        }
+
+        const source = audioContext.createBufferSource();
+        const filter = audioContext.createBiquadFilter();
+        const volume = audioContext.createGain();
+        const now = audioContext.currentTime;
+        source.buffer = noiseBuffer;
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(1350, now);
+        volume.gain.setValueAtTime(0.0001, now);
+        volume.gain.exponentialRampToValueAtTime(0.24, now + 0.025);
+        volume.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
+        source.connect(filter);
+        filter.connect(volume);
+        volume.connect(masterGain);
+        source.start(now);
+        source.stop(now + 0.23);
+      }
+
+      const birthdayNotes = [
+        [392, 0.34], [392, 0.34], [440, 0.68], [392, 0.68], [523.25, 0.68], [493.88, 1.36],
+        [392, 0.34], [392, 0.34], [440, 0.68], [392, 0.68], [587.33, 0.68], [523.25, 1.36],
+        [392, 0.34], [392, 0.34], [783.99, 0.68], [659.25, 0.68], [523.25, 0.68], [493.88, 0.68], [440, 1.36],
+        [698.46, 0.34], [698.46, 0.34], [659.25, 0.68], [523.25, 0.68], [587.33, 0.68], [523.25, 1.36]
+      ];
+
+      function stopMusic() {
+        for (const oscillator of activeMusic) {
+          oscillator.onended = null;
+          oscillator.stop();
+        }
+        activeMusic.clear();
+      }
+
+      function playBirthdayTune() {
+        if (!state.soundEnabled || !ensureAudio()) {
+          return;
+        }
+
+        stopMusic();
+        let noteStart = audioContext.currentTime + 0.08;
+        for (const note of birthdayNotes) {
+          const duration = note[1];
+          const oscillator = audioContext.createOscillator();
+          const envelope = audioContext.createGain();
+          const noteEnd = noteStart + duration;
+          oscillator.type = "sine";
+          oscillator.frequency.setValueAtTime(note[0], noteStart);
+          envelope.gain.setValueAtTime(0.0001, noteStart);
+          envelope.gain.exponentialRampToValueAtTime(0.16, noteStart + 0.025);
+          envelope.gain.setValueAtTime(0.16, noteEnd - 0.045);
+          envelope.gain.exponentialRampToValueAtTime(0.0001, noteEnd);
+          oscillator.connect(envelope);
+          envelope.connect(masterGain);
+          oscillator.onended = () => {
+            activeMusic.delete(oscillator);
+            if (activeMusic.size === 0 && state.soundEnabled) {
+              announceAudio("Sound is on. Birthday music has finished.");
+            }
+          };
+          activeMusic.add(oscillator);
+          oscillator.start(noteStart);
+          oscillator.stop(noteEnd);
+          noteStart = noteEnd;
+        }
+        announceAudio("Sound is on. Birthday music is playing.");
+      }
+
+      function spawnFirework(x, y) {
+        const color = FIREWORK_COLORS[Math.floor(Math.random() * FIREWORK_COLORS.length)];
+        const count = 24;
+        for (let i = 0; i < count; i += 1) {
+          const particle = particles[particleCursor];
+          particleCursor = (particleCursor + 1) % particles.length;
+          const angle = (Math.PI * 2 * i) / count + Math.random() * 0.08;
+          const speed = 36 + Math.random() * 74;
+          particle.x = x;
+          particle.y = y;
+          particle.vx = Math.cos(angle) * speed;
+          particle.vy = Math.sin(angle) * speed;
+          particle.life = 0.75 + Math.random() * 0.55;
+          particle.maxLife = particle.life;
+          particle.size = 1.5 + Math.random() * 2;
+          particle.color = color;
+          particle.active = true;
+        }
+      }
+
+      function beginCelebration() {
+        state.mode = "celebration";
+        state.fireworkElapsed = 0;
+        state.fireworkSpawnElapsed = 0;
+        blowButton.disabled = true;
+        sceneHint.textContent = "Your birthday wish is on its way!";
+        shell.inert = true;
+        celebration.hidden = false;
+        celebrationTitle.focus();
+        spawnFirework(state.width * 0.35, state.height * 0.28);
+        spawnFirework(state.width * 0.65, state.height * 0.34);
+        playBirthdayTune();
+      }
+
+      function registerHit() {
+        if (state.mode !== "playing" || !candle.lit) {
+          return;
+        }
+
+        state.hits += 1;
+        candle.lit = false;
+        state.blowoutRemaining = BLOWOUT_SECONDS;
+        updateProgress();
+        updateControls();
+        playBlowSound();
+
+        if (state.hits === HIT_GOAL) {
+          beginCelebration();
+          return;
+        }
+
+        sceneHint.textContent = `${HIT_GOAL - state.hits} more ${HIT_GOAL - state.hits === 1 ? "wish" : "wishes"} to go!`;
+      }
+
+      function startGame() {
+        if (state.mode !== "intro") {
+          return;
+        }
+
+        state.mode = "playing";
+        state.hits = 0;
+        resetCandle();
+        startPanel.hidden = true;
+        sceneHint.textContent = "Click or tap the moving flame!";
+        shell.inert = false;
+        updateProgress();
+        updateControls();
+        if (state.soundEnabled) {
+          ensureAudio();
+        }
+        blowButton.focus();
+      }
+
+      function resetGame() {
+        stopMusic();
+        state.mode = "intro";
+        state.hits = 0;
+        state.fireworkElapsed = 0;
+        state.fireworkSpawnElapsed = 0;
+        for (const particle of particles) {
+          particle.active = false;
+        }
+        resetCandle();
+        updateProgress();
+        updateControls();
+        sceneHint.textContent = "A little wish is waiting for you";
+        startPanel.hidden = false;
+        celebration.hidden = true;
+        shell.inert = false;
+        announceAudio(!state.soundEnabled
+          ? "Sound is off."
+          : state.audioUnavailable
+            ? AUDIO_UNAVAILABLE_MESSAGE
+            : "Sound is on. Birthday music plays when you finish.");
+        startButton.focus();
+      }
+
+      function handlePointerDown(event) {
+        if (state.mode !== "playing" || !candle.lit || !event.isPrimary || event.button !== 0) {
+          return;
+        }
+
+        const bounds = canvas.getBoundingClientRect();
+        if (bounds.width === 0 || bounds.height === 0) {
+          return;
+        }
+        const x = event.clientX - bounds.left;
+        const y = event.clientY - bounds.top;
+        const flameX = candle.x;
+        const flameY = cake.upperTop - candle.height - 12;
+        const deltaX = x - flameX;
+        const deltaY = y - flameY;
+        if (deltaX * deltaX + deltaY * deltaY <= HIT_RADIUS * HIT_RADIUS) {
+          event.preventDefault();
+          registerHit();
+        }
+      }
+
+      function updateCandle(deltaSeconds) {
+        if (state.mode !== "playing") {
+          return;
+        }
+
+        if (!candle.lit) {
+          state.blowoutRemaining -= deltaSeconds;
+          if (state.blowoutRemaining <= 0) {
+            candle.x = chooseRelightPosition();
+            candle.direction = Math.random() < 0.5 ? -1 : 1;
+            candle.lit = true;
+            updateControls();
+          }
+          return;
+        }
+
+        if (state.reducedMotion) {
+          return;
+        }
+
+        candle.x += candle.direction * currentCandleSpeed(state.hits) * deltaSeconds;
+        if (candle.x >= cake.candleMaxX) {
+          candle.x = cake.candleMaxX;
+          candle.direction = -1;
+        } else if (candle.x <= cake.candleMinX) {
+          candle.x = cake.candleMinX;
+          candle.direction = 1;
+        }
+      }
+
+      function updateParticles(deltaSeconds) {
+        for (const particle of particles) {
+          if (!particle.active) {
+            continue;
+          }
+          particle.life -= deltaSeconds;
+          if (particle.life <= 0) {
+            particle.active = false;
+            continue;
+          }
+          particle.x += particle.vx * deltaSeconds;
+          particle.y += particle.vy * deltaSeconds;
+          particle.vy += 50 * deltaSeconds;
+        }
+      }
+
+      function updateCelebration(deltaSeconds) {
+        if (state.mode !== "celebration" || state.reducedMotion) {
+          return;
+        }
+
+        state.fireworkElapsed += deltaSeconds;
+        if (state.fireworkElapsed < 5.2) {
+          state.fireworkSpawnElapsed += deltaSeconds;
+          if (state.fireworkSpawnElapsed >= 0.62) {
+            state.fireworkSpawnElapsed = 0;
+            const x = state.width * (0.18 + Math.random() * 0.64);
+            const y = state.height * (0.12 + Math.random() * 0.35);
+            spawnFirework(x, y);
+          }
+        }
+      }
+
+      function drawCake() {
+        const lowerLeft = cake.centerX - cake.lowerWidth / 2;
+        const upperLeft = cake.centerX - cake.upperWidth / 2;
+
+        context.fillStyle = "#fffaf3";
+        context.beginPath();
+        context.ellipse(cake.centerX, cake.baseY + 3, cake.lowerWidth * 0.59, 13, 0, 0, Math.PI * 2);
+        context.fill();
+
+        context.fillStyle = "#d887a0";
+        context.fillRect(lowerLeft, cake.lowerTop, cake.lowerWidth, cake.baseY - cake.lowerTop);
+        context.fillStyle = "#f4c3ca";
+        context.beginPath();
+        context.ellipse(cake.centerX, cake.lowerTop, cake.lowerWidth / 2, 14, 0, 0, Math.PI * 2);
+        context.fill();
+        context.fillStyle = "#fff6e9";
+        context.fillRect(lowerLeft, cake.lowerTop + 17, cake.lowerWidth, 8);
+        context.fillStyle = "#fff6e9";
+        context.beginPath();
+        context.ellipse(cake.centerX, cake.baseY, cake.lowerWidth / 2, 12, 0, 0, Math.PI);
+        context.fill();
+
+        context.fillStyle = "#f4b7b7";
+        context.fillRect(upperLeft, cake.upperTop, cake.upperWidth, cake.lowerTop - cake.upperTop);
+        context.fillStyle = "#fff5e8";
+        context.beginPath();
+        context.ellipse(cake.centerX, cake.upperTop, cake.upperWidth / 2, 12, 0, 0, Math.PI * 2);
+        context.fill();
+
+        context.fillStyle = "#e9a64f";
+        for (let i = 0; i < 5; i += 1) {
+          const sprinkleX = upperLeft + 20 + i * ((cake.upperWidth - 40) / 4);
+          context.beginPath();
+          context.arc(sprinkleX, cake.upperTop + 22 + (i % 2) * 8, 2.4, 0, Math.PI * 2);
+          context.fill();
+        }
+
+        context.fillStyle = "#fff5e8";
+        context.beginPath();
+        context.ellipse(cake.centerX, cake.lowerTop, cake.lowerWidth / 2, 13, 0, 0, Math.PI * 2);
+        context.fill();
+        context.fillStyle = "#e99caf";
+        context.fillRect(lowerLeft, cake.lowerTop + 10, cake.lowerWidth, 14);
+        context.fillStyle = "#fff5e8";
+        context.beginPath();
+        context.ellipse(cake.centerX, cake.lowerTop + 10, cake.lowerWidth / 2, 10, 0, 0, Math.PI * 2);
+        context.fill();
+      }
+
+      function drawFlower(centerX, centerY, size, petalColor, centerColor) {
+        for (let petal = 0; petal < 5; petal += 1) {
+          const angle = (Math.PI * 2 * petal) / 5;
+          cakeFlowersContext.fillStyle = petalColor;
+          cakeFlowersContext.beginPath();
+          cakeFlowersContext.ellipse(
+            centerX + Math.cos(angle) * size * 0.47,
+            centerY + Math.sin(angle) * size * 0.47,
+            size * 0.39,
+            size * 0.25,
+            angle,
+            0,
+            Math.PI * 2
+          );
+          cakeFlowersContext.fill();
+        }
+
+        cakeFlowersContext.fillStyle = centerColor;
+        cakeFlowersContext.beginPath();
+        cakeFlowersContext.arc(centerX, centerY, size * 0.22, 0, Math.PI * 2);
+        cakeFlowersContext.fill();
+      }
+
+      function drawCakeFlowers() {
+        const flowerY = cake.lowerTop + 48;
+        const flowerOffset = cake.lowerWidth * 0.24;
+        const flowerSize = Math.max(8, Math.min(12, cake.lowerWidth * 0.035));
+        drawFlower(cake.centerX - flowerOffset, flowerY, flowerSize, "#fff2d5", "#e3a93c");
+        drawFlower(cake.centerX, flowerY - 3, flowerSize, "#ffe5ed", "#a64d79");
+        drawFlower(cake.centerX + flowerOffset, flowerY, flowerSize, "#f5e9ff", "#8f78b5");
+      }
+
+      function drawCandle() {
+        const candleTop = cake.upperTop - candle.height;
+        context.fillStyle = "#fff5df";
+        context.fillRect(candle.x - candle.width / 2, candleTop, candle.width, candle.height);
+        context.fillStyle = "#e8a4ad";
+        context.fillRect(candle.x - candle.width / 2, candleTop + 9, candle.width, 5);
+        context.fillRect(candle.x - candle.width / 2, candleTop + 27, candle.width, 5);
+        context.fillStyle = "#6c4c58";
+        context.fillRect(candle.x - 1, candleTop - 5, 2, 7);
+
+        if (!candle.lit) {
+          return;
+        }
+
+        const flameY = candleTop - 12;
+        context.save();
+        context.shadowColor = "rgb(245 166 77 / 70%)";
+        context.shadowBlur = 18;
+        context.fillStyle = "#f2a34a";
+        context.beginPath();
+        context.moveTo(candle.x, flameY - 11);
+        context.bezierCurveTo(candle.x + 12, flameY + 1, candle.x + 5, flameY + 9, candle.x, flameY + 8);
+        context.bezierCurveTo(candle.x - 8, flameY + 5, candle.x - 8, flameY - 2, candle.x, flameY - 11);
+        context.fill();
+        context.shadowBlur = 0;
+        context.fillStyle = "#fff0b2";
+        context.beginPath();
+        context.ellipse(candle.x, flameY + 2, 3, 5, 0, 0, Math.PI * 2);
+        context.fill();
+        context.restore();
+      }
+
+      function drawParticles() {
+        for (const particle of particles) {
+          if (!particle.active) {
+            continue;
+          }
+          context.globalAlpha = particle.life / particle.maxLife;
+          context.fillStyle = particle.color;
+          context.beginPath();
+          context.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          context.fill();
+        }
+        context.globalAlpha = 1;
+      }
+
+      function drawScene() {
+        context.clearRect(0, 0, state.width, state.height);
+        drawCake();
+        context.drawImage(cakeFlowersCanvas, 0, 0, state.width, state.height);
+        drawCandle();
+        if (!state.reducedMotion) {
+          drawParticles();
+        }
+      }
+
+      function frame(timestamp) {
+        const elapsed = state.lastFrame === 0 ? 0 : (timestamp - state.lastFrame) / 1000;
+        const deltaSeconds = clamp(elapsed, 0, MAX_DELTA_SECONDS);
+        state.lastFrame = timestamp;
+
+        updateCandle(deltaSeconds);
+        updateParticles(deltaSeconds);
+        updateCelebration(deltaSeconds);
+        drawScene();
+        animationFrame = window.requestAnimationFrame(frame);
+      }
+
+      function handleVisibilityChange() {
+        if (document.hidden) {
+          window.cancelAnimationFrame(animationFrame);
+          state.lastFrame = 0;
+          return;
+        }
+        state.lastFrame = 0;
+        animationFrame = window.requestAnimationFrame(frame);
+      }
+
+      function handleMotionPreference(event) {
+        state.reducedMotion = event.matches;
+        if (state.reducedMotion) {
+          for (const particle of particles) {
+            particle.active = false;
+          }
+        }
+        drawScene();
+      }
+
+      startButton.addEventListener("click", startGame);
+      blowButton.addEventListener("click", registerHit);
+      replayButton.addEventListener("click", resetGame);
+      soundToggle.addEventListener("click", () => setSoundEnabled(!state.soundEnabled));
+      celebrationSoundToggle.addEventListener("click", () => setSoundEnabled(!state.soundEnabled));
+      canvas.addEventListener("pointerdown", handlePointerDown);
+      window.addEventListener("resize", configureCanvas, { passive: true });
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+
+      if (typeof ResizeObserver !== "undefined") {
+        const resizeObserver = new ResizeObserver(configureCanvas);
+        resizeObserver.observe(scene);
+      }
+      if (typeof motionPreference.addEventListener === "function") {
+        motionPreference.addEventListener("change", handleMotionPreference);
+      } else if (typeof motionPreference.addListener === "function") {
+        motionPreference.addListener(handleMotionPreference);
+      }
+
+      configureCanvas();
+      resetCandle();
+      updateProgress();
+      updateControls();
+      animationFrame = window.requestAnimationFrame(frame);
+    })();
+  </script>
+</body>
+</html>
